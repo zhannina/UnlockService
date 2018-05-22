@@ -15,8 +15,6 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class UnlockService extends Service {
-
-    private UnlockReceiver unlockReceiver;
     public static final int notify = 15*60*1000;  //interval between two services(Here Service run every 15 Minutes)
     private Handler mHandler = new Handler();   //run on another Thread to avoid crash
     private Timer mTimer = null;    //timer handling
