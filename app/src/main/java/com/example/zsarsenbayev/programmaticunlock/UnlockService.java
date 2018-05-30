@@ -1,12 +1,15 @@
 package com.example.zsarsenbayev.programmaticunlock;
 
+import android.app.AlarmManager;
 import android.app.IntentService;
 import android.app.KeyguardManager;
+import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.os.IBinder;
 import android.os.PowerManager;
+import android.os.SystemClock;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
@@ -69,6 +72,24 @@ public class UnlockService extends Service {
 
 
         return START_STICKY;
+    }
+
+    @Override
+    public void onTaskRemoved(Intent rootIntent) {
+        // TODO Auto-generated method stub
+        Intent restartService = new Intent(getApplicationContext(),
+                this.getClass());
+        restartService.setPackage(getPackageName());
+        PendingIntent restartServicePI = PendingIntent.getService(
+                getApplicationContext(), 1, restartService,
+                PendingIntent.FLAG_ONE_SHOT);
+
+        //Restart the service once it has been killed android
+
+
+        AlarmManager alarmService = (AlarmManager)getApplicationContext().getSystemService(Context.ALARM_SERVICE);
+        alarmService.set(AlarmManager.ELAPSED_REALTIME, SystemClock.elapsedRealtime() +100, restartServicePI);
+
     }
 
     @Override
