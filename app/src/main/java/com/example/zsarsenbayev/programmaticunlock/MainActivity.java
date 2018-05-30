@@ -10,6 +10,7 @@ public class MainActivity extends AppCompatActivity {
 
     private Button unlockServiceButton;
     Intent serviceIntent;
+    // handler needed
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
